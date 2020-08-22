@@ -5,15 +5,15 @@ import pprint
 
 config = configparser.ConfigParser()
 config.read('credentials.ini')
-credentials = config['CREDENTIALS']
+api = twitter.Api(**config['CREDENTIALS'])
 
-api = twitter.Api(
-    consumer_key=credentials['consumer_key'],
-    consumer_secret=credentials['consumer_secret'],
-    access_token_key=credentials['access_token_key'],
-    access_token_secret=credentials['access_token_secret']
-)
+# owned_lists = api.GetLists()
+# pprint.pprint(owned_lists)
 
-owned_lists = api.GetLists()
+user = api.GetUser(screen_name="_cryptoanarchy")
 
-pprint.pprint(owned_lists)
+# for user in api.GetFriends():
+for user in [user]:
+    pprint.pprint(user)
+    print("Last Status At:", user.status.created_at)
+    print("============================")
